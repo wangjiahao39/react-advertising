@@ -1,0 +1,42 @@
+const path = require('path')
+//console.log(process.cwd())
+const webpack = require('webpack')
+module.exports={
+    entry:{
+        bundle:path.resolve(process.cwd(),'src/main.js')
+    },
+    output:{
+        path:path.resolve(process.cwd(),'dist'),
+        filename:'[name].js',
+        chunkFilename:'[name][hash].js'
+    },
+    module:{
+        rules:[
+            {
+                test:/\.(jsx|js)$/,
+                use:['babel-loader'],
+                exclude:/node_modules/
+            },
+            {
+                test:/\.(css)$/,
+                use:['style-loader','css-loader']
+            },
+            {
+                test:/\.(jpg|png|gif|ttf|woff|svg|eot)$/,
+                use:['file-loader']
+            }
+        ]
+    },
+    resolve:{
+        alias:{
+            "@":path.resolve(process.cwd(),"src")
+        },
+        extensions:['.js','.jsx']
+    },
+    plugins:[new webpack.DefinePlugin({
+        chunkPath:JSON.stringify('plan')
+    })],
+    externals:{
+        "antd":"https://cdn.bootcss.com/antd/3.5.4/antd.js"
+    }
+}
