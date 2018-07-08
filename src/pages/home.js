@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
-// 引入 ECharts 主模块
-let echarts = require('echarts/lib/echarts');
-// 引入柱状图
-require('echarts/lib/chart/bar');
-// 引入提示框和标题组件
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/title');
+//let echarts = require('echarts/lib/echarts');
+import moment from 'moment'
 import '../assets/css/home.css'
 
 class Home extends Component {
@@ -49,7 +44,7 @@ class Home extends Component {
                             <input type="text" placeholder="请选择订单日期"/>
                         </p>
                     </div>
-                    <div id="main" style={{ width: 400, height: 400 }}></div>
+                    <div id="main"></div>
                 </div>
             </div>
         </div>
@@ -57,21 +52,29 @@ class Home extends Component {
     componentDidMount() {
         // 基于准备好的dom，初始化echarts实例
         let myChart = echarts.init(document.getElementById('main'));
+        let date = new Date();
+        console.log(moment().month(date.getMonth()).format("YYYY-MM-DD"))
+        console.log(moment().add(1,'days').format("YYYY/MM/DD"))
+        let arr = []
+        for(let i = 1;i<=5;i++){
+            arr.unshift(moment().subtract(i,'days').format("YYYY/MM/DD"))
+        }
         myChart.setOption({
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
             xAxis: {
-                data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+                type: 'category',
+                data: arr
             },
-            yAxis: {},
+            yAxis: {
+                type: 'value'
+            },
             series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
+                data: [600, 930, 800, 1200, 1290],
+                type: 'line'
             }]
         });
+        window.onresize = function(){
+            myChart.resize()
+        }
     }
 
 }

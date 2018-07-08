@@ -1,6 +1,6 @@
 import React, { Component, PureComponent ,Fragment} from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
-import { Menu, Icon, Button } from 'antd';
+import antd,{ Menu, Icon, Button } from 'antd';
 import config,{routes} from './router/config';
 import Routers from './router/router';
 console.log(routes)

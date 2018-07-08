@@ -7,5 +7,11 @@ module.exports=merge(base,{
     output:{
         
     },
-    plugins:[]
+    plugins:[],
+    externals:{
+        "moment":"moment",
+        "react-dom":"ReactDOM",
+        "react":"React",
+        "antd":"antd"
+    }
 })
